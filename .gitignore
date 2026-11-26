@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+
+# Env & secrets
+.env*
+!.env.example
+
+# Hosting / tooling
+.vercel/
+
+# OS / editor
+.DS_Store
+*:Zone.Identifier
+.idea/
+.vscode/
+
+# Personal documents (never publish — contain student number & grades)
+*.pdf
+cs-curriculum.jpg
+
+# Teaching workspace (agent learning files, not site code)
+/MISSION.md
+/RESOURCES.md
+/NOTES.md
+/lessons/
+/learning-records/
+
+# Design process artifacts (agent context; revisit before final submission)
+/assets/course.css
