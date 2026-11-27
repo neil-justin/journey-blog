@@ -20,6 +20,7 @@ build/
 *:Zone.Identifier
 .idea/
 .vscode/
+tsconfig.tsbuildinfo
 
 # Personal documents (never publish — contain student number & grades)
 *.pdf
