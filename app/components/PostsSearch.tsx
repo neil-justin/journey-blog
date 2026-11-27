@@ -91,7 +91,7 @@ export default function PostsSearch({ items }: { items: PostSearchItem[] }) {
             <Link
               key={item.slug}
               href={`/posts/${item.slug}`}
-              className="block border border-[#223247] bg-[#07070a]/80 p-6 transition-colors hover:border-[#ffc857]/60"
+              className="reveal block border border-[#223247] bg-[#07070a]/80 p-6 transition-colors hover:border-[#ffc857]/60"
             >
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                 <img

@@ -165,7 +165,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
             <section key={o.id} id={o.id} className="pt-[35vh] lg:pt-[65vh] scroll-mt-10">
               {o.id === "ojt-era" ? (
                 <div
-                  className={`border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
+                  className={`reveal border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
                     active === o.id ? "border-[#ffc857]/60" : "border-[#223247]"
                   } bg-[#07070a]/80`}
                 >
@@ -199,7 +199,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
               ) : (
                 <Link
                   href={cardHrefs[o.id]}
-                  className={`block cursor-pointer border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
+                  className={`reveal block cursor-pointer border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
                     active === o.id ? "border-[#ffc857]/60" : "border-[#223247]"
                   } bg-[#07070a]/80`}
                 >
@@ -229,12 +229,12 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
           <section id="reflection" className="pt-[35vh] lg:pt-[65vh] scroll-mt-10">
             <Link
               href={cardHrefs["reflection"]}
-              className={`block cursor-pointer border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
+              className={`reveal block cursor-pointer border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
                 active === "reflection" ? "border-[#ffc857]" : "border-[#223247]"
               } bg-[#07070a]/85`}
             >
               <p className="text-[10px] tracking-[0.4em] text-[#ffc857]">
-                ● EVENT HORIZON — FINAL REFLECTION
+                ● PERIHELION — FINAL REFLECTION
               </p>
               <h2 className="mt-4 text-2xl sm:text-3xl font-extralight leading-snug">
                 One last post after everything.

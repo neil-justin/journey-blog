@@ -56,7 +56,7 @@ export default function AboutPage() {
         {EXPERIENCE.map((job) => (
           <div
             key={job.company}
-            className="border border-[#223247] bg-[#07070a]/80 p-6 sm:p-8"
+            className="reveal border border-[#223247] bg-[#07070a]/80 p-6 sm:p-8"
           >
             <h3 className="text-base sm:text-lg font-semibold text-[#e6f1ff]">
               {job.company}

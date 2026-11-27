@@ -36,7 +36,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
         aria-hidden
         className="mt-8 block w-full border border-[#223247] bg-[#07070a]"
       />
-      <div className="prose-invert mt-8 border border-[#223247] bg-[#07070a]/80 p-6 sm:p-8 [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-xl [&_h2]:first:mt-0 [&_li]:text-[#c8d6e5] [&_li]:mt-2 [&_p]:text-sm [&_p]:text-[#c8d6e5] [&_p]:leading-relaxed [&_p]:font-light [&_p]:my-5 [&_p]:first:mt-0 [&_p]:last:mb-0 [&_strong]:text-[#ffc857]">
+      <div className="reveal prose-invert mt-8 border border-[#223247] bg-[#07070a]/80 p-6 sm:p-8 [&_h2]:mt-8 [&_h2]:mb-2 [&_h2]:font-display [&_h2]:text-xl [&_h2]:first:mt-0 [&_li]:text-[#c8d6e5] [&_li]:mt-2 [&_p]:text-sm [&_p]:text-[#c8d6e5] [&_p]:leading-relaxed [&_p]:font-light [&_p]:my-5 [&_p]:first:mt-0 [&_p]:last:mb-0 [&_strong]:text-[#ffc857]">
         <MDXRemote source={post.content} />
       </div>
       <div className="mt-16 flex justify-between text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">

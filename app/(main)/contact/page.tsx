@@ -33,7 +33,7 @@ export default function ContactPage() {
 
       <ContactForm />
 
-      <div className="mt-14">
+      <div className="reveal mt-14">
         <h2 className="text-xs font-mono tracking-[0.4em] text-[#4a79bb]">
           OR FIND ME DIRECTLY
         </h2>

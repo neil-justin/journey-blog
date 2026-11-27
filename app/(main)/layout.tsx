@@ -29,6 +29,9 @@ export default function InnerLayout({ children }: { children: ReactNode }) {
           {children}
         </main>
       </div>
+
+      {/* scroll-driven reading progress (CSS animation-timeline, no JS) */}
+      <div aria-hidden className="scroll-progress fixed top-0 left-0 z-30 h-0.5 w-full bg-[#ffc857]" />
     </div>
   );
 }
