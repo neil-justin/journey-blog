@@ -93,7 +93,7 @@ export default function PostsSearch({ items }: { items: PostSearchItem[] }) {
               href={`/posts/${item.slug}`}
               className="block border border-[#223247] bg-[#07070a]/80 p-6 transition-colors hover:border-[#ffc857]/60"
             >
-              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
                 <img
                   src={`/posts/${item.slug}.jpg`}
                   alt=""
