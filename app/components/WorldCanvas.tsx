@@ -122,14 +122,24 @@ function BlackHole({ activeRing }: { activeRing: number }) {
     if (group.current) {
       const s = 1 + Math.sin(state.clock.elapsedTime * 1.3) * 0.008;
       group.current.scale.setScalar(s * (narrow ? 0.62 : 1));
+
+      // dynamically center the hole in the right half of the screen (75% width)
+      // at any window size/aspect ratio, and keep it there while scrolling
+      if (!narrow) {
+        const cam = state.camera as THREE.PerspectiveCamera;
+        const dist = cam.position.z - group.current.position.z;
+        const viewH = 2 * dist * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
+        const viewW = viewH * (state.size.width / state.size.height);
+        group.current.position.x = 0.25 * viewW; // +25% from center = 75% of screen
+      }
     }
   });
 
   return (
     <group
       ref={group}
-      // parked in the right half of the layout, centered on its own axis (no z-tilt)
-      position={[narrow ? 0 : 26, narrow ? 12 : 2, -20]}
+      // x is computed every frame to stay centered in the right half; mobile: raised above the hero text
+      position={[0, narrow ? 12 : 2, -20]}
     >
       <group rotation={[1.22, 0, 0]}>
         {/* the accretion disk — one textured ring, reads as light not plastic */}
@@ -180,13 +190,12 @@ function BlackHole({ activeRing }: { activeRing: number }) {
 
 function FallCamera({ progress }: { progress: number }) {
   const { camera } = useThree();
-  const { viewport } = useThree();
   useFrame(() => {
     const targetZ = 78 - progress * 50; // 78 → 28
     camera.position.z += (targetZ - camera.position.z) * 0.06;
     camera.position.y += (2 - camera.position.y) * 0.06;
-    // hole centered on the right side of the layout; mobile: raised above the hero text
-    camera.lookAt(viewport.aspect < 1 ? 0 : 7, 1, -20);
+    // look straight ahead; right-half centering is handled by the hole's group position
+    camera.lookAt(0, 1, -20);
   });
   return null;
 }
