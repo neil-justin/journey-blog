@@ -2,7 +2,7 @@
 
 A CS-student journey blog — from 1st year foundations to OJT — built as the final project for Software Engineering 1.
 
-**Live site:** https://journey-blog.vercel.app *(placeholder — confirm final URL)*
+**Live site:** https://journey-blog.vercel.app
 
 ## Features
 
