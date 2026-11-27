@@ -154,7 +154,7 @@ export default function DeepHome() {
           </section>
 
           {SECTIONS.map((o) => (
-            <section key={o.id} id={o.id} className="pt-[65vh] scroll-mt-10">
+            <section key={o.id} id={o.id} className="pt-[35vh] lg:pt-[65vh] scroll-mt-10">
               <div
                 className={`border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
                   active === o.id ? "border-[#ffc857]/60" : "border-[#223247]"
@@ -182,7 +182,7 @@ export default function DeepHome() {
             </section>
           ))}
 
-          <section id="reflection" className="pt-[65vh] scroll-mt-10">
+          <section id="reflection" className="pt-[35vh] lg:pt-[65vh] scroll-mt-10">
             <div
               className={`border p-6 sm:p-8 backdrop-blur-md transition-colors duration-700 ${
                 active === "reflection" ? "border-[#ffc857]" : "border-[#223247]"
