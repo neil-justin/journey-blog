@@ -32,7 +32,7 @@ function Field({
 }) {
   return (
     <label className="block">
-      <span className="text-[11px] font-mono tracking-[0.4em] text-[#4a79bb]">
+      <span className="text-[10px] font-mono tracking-[0.4em] text-[#4a79bb]">
         {label}
       </span>
       {children}
@@ -46,7 +46,7 @@ function Field({
 }
 
 const inputClass = (invalid: boolean) =>
-  `mt-2 w-full border bg-[#10161f]/95 px-4 py-3 text-base text-[#e6f1ff] placeholder-[#4a5a70] outline-none transition-colors focus:border-[#ffc857] backdrop-blur-sm ${
+  `mt-2 w-full border bg-[#10161f]/95 px-4 py-3 text-sm text-[#e6f1ff] placeholder-[#4a5a70] outline-none transition-colors focus:border-[#ffc857] backdrop-blur-sm ${
     invalid ? "border-[#ff6b4a]" : "border-[#223247]"
   }`;
 
@@ -109,7 +109,7 @@ export default function ContactForm() {
         <p className="text-[11px] font-mono tracking-[0.4em] text-[#ffc857]">
           ● MESSAGE ACROSS THE HORIZON
         </p>
-        <p className="mt-4 text-base text-[#c8d6e5] font-light">
+        <p className="mt-4 text-sm text-[#c8d6e5] font-light">
           Sent. I&apos;ll get back to you at the email you left.
         </p>
       </div>

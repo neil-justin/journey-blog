@@ -11,7 +11,7 @@ const LINKS = [
 
 export default function SiteNav() {
   return (
-    <nav className="flex gap-5 text-[13px] tracking-[0.22em] text-[#8fa8c0] font-mono">
+    <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
       {LINKS.map((l) => (
         <Link key={l.href} className="hover:text-[#ffc857]" href={l.href}>
           {l.label}

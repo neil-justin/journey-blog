@@ -15,13 +15,10 @@ export default function InnerLayout({ children }: { children: ReactNode }) {
         <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 border-b border-[#161f2e] bg-[#07070a]/80 px-5 py-6 backdrop-blur-md sm:px-10">
           <Link href="/" className="font-mono tracking-[0.5em] text-sm">
             NEIL JUSTIN MALLARI
-            <span className="block text-[10px] tracking-[0.34em] text-[#4a79bb] mt-1">
-              MY JOURNEY FROM 1ST YEAR TO OJT
-            </span>
           </Link>
           <SiteNav />
         </header>
-        <main className="mx-auto max-w-2xl sm:px-10 px-5 pb-40 lg:mx-0 lg:ml-[6vw]">
+        <main className="mx-auto max-w-2xl sm:px-10 px-5 pb-40">
           {children}
         </main>
       </div>

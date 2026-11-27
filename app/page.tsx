@@ -135,11 +135,8 @@ export default function DeepHome() {
         <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 bg-[#07070a]/70 px-5 py-6 backdrop-blur-md sm:px-10">
           <p className="font-mono tracking-[0.5em] text-sm">
             NEIL JUSTIN MALLARI
-            <span className="block text-[10px] tracking-[0.34em] text-[#4a79bb] mt-1">
-              MY JOURNEY FROM 1ST YEAR TO OJT — IN 3D
-            </span>
           </p>
-          <nav className="flex gap-5 text-[13px] tracking-[0.22em] text-[#8fa8c0] font-mono">
+          <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
             {NAV.map((l) => (
               <Link key={l.href} className="hover:text-[#ffc857]" href={l.href}>
                 {l.label}
@@ -157,11 +154,11 @@ export default function DeepHome() {
             <p className="text-[11px] font-mono tracking-[0.4em] text-[#4a79bb] drop-shadow-[0_2px_8px_rgba(7,7,10,1)]">
               MY JOURNEY AS A CS STUDENT
             </p>
-            <h1 className="mt-6 text-4xl sm:text-6xl leading-snug font-bold font-display drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
+            <h1 className="mt-6 text-3xl sm:text-5xl leading-snug font-bold font-display drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
               From 1st year to{" "}
               <span className="text-[#ffc857]">OJT and beyond.</span>
             </h1>
-            <p className="mt-6 text-base sm:text-xl text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
+            <p className="mt-6 text-sm sm:text-lg text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
               This blog is my whole journey as a computer science student — the
               subjects, the projects, and my real work experience. Scroll down to
               travel through it. The closer you get to the center, the closer to
@@ -180,12 +177,12 @@ export default function DeepHome() {
                   {active === o.id ? "● YOU ARE HERE" : "CHAPTER"} — {o.label}
                   {o.status.startsWith("NOW") ? " · " + o.status : ""}
                 </p>
-                <p className="mt-4 text-base sm:text-lg text-[#c8d6e5] leading-relaxed font-light">
+                <p className="mt-4 text-sm sm:text-base text-[#c8d6e5] leading-relaxed font-light">
                   {o.text}
                 </p>
                 <ul className="mt-5 space-y-2">
                   {o.entries.map((entry) => (
-                    <li key={entry} className="text-[15px] text-[#8fa8c0] flex items-baseline gap-3">
+                    <li key={entry} className="text-[13px] text-[#8fa8c0] flex items-baseline gap-3">
                       <span className="text-[#ffc857]">◦</span>
                       {entry}
                     </li>
@@ -207,10 +204,10 @@ export default function DeepHome() {
               <p className="text-[10px] tracking-[0.4em] text-[#ffc857]">
                 ● EVENT HORIZON — FINAL REFLECTION
               </p>
-              <h2 className="mt-4 text-3xl sm:text-4xl font-extralight leading-snug">
+              <h2 className="mt-4 text-2xl sm:text-3xl font-extralight leading-snug">
                 One last post after everything.
               </h2>
-              <p className="mt-4 text-base sm:text-lg text-[#c8d6e5] font-light leading-relaxed">
+              <p className="mt-4 text-sm sm:text-base text-[#c8d6e5] font-light leading-relaxed">
                 A final reflection on the whole trip — what four years and one
                 career actually taught me.
               </p>

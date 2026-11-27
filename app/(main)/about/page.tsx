@@ -31,9 +31,9 @@ const EXPERIENCE = [
 export default function AboutPage() {
   return (
     <section className="pt-16">
-      <h1 className="text-3xl sm:text-4xl font-display">About</h1>
+      <h1 className="text-2xl sm:text-3xl font-display">About</h1>
 
-      <div className="mt-10 space-y-6 text-base text-[#c8d6e5] font-light leading-relaxed">
+      <div className="mt-10 space-y-6 text-sm text-[#c8d6e5] font-light leading-relaxed">
         {/* TODO(interview): replace draft bio with Neil's reviewed words */}
         <p>
           I&apos;m Neil Justin Mallari, a computer science student based in
@@ -69,7 +69,7 @@ export default function AboutPage() {
               {job.lines.map((line) => (
                 <li
                   key={line}
-                  className="flex items-baseline gap-3 text-[15px] text-[#8fa8c0] leading-relaxed"
+                  className="flex items-baseline gap-3 text-[13px] text-[#8fa8c0] leading-relaxed"
                 >
                   <span className="text-[#ffc857]">◦</span>
                   {line}
