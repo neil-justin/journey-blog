@@ -109,13 +109,7 @@ const RING_INFO = [
   { r: 4.6, color: "#ffc857", opacity: 0.7 }, // 4th year — inner, now
 ];
 
-function BlackHole({
-  activeRing,
-  ambient,
-}: {
-  activeRing: number;
-  ambient: boolean;
-}) {
+function BlackHole({ activeRing }: { activeRing: number }) {
   const disk = useRef<THREE.Mesh>(null);
   const group = useRef<THREE.Group>(null);
   const { viewport } = useThree();
@@ -134,10 +128,10 @@ function BlackHole({
   return (
     <group
       ref={group}
-      // ambient: parked right, out of the content column; journey: centered on its own axis
-      position={ambient ? [26, 6, -20] : [narrow ? 0 : 22, narrow ? 12 : 1, -20]}
+      // parked in the right half of the layout, centered on its own axis (no z-tilt)
+      position={[narrow ? 0 : 26, narrow ? 12 : 2, -20]}
     >
-      <group rotation={[1.22, 0, 0.3]}>
+      <group rotation={[1.22, 0, 0]}>
         {/* the accretion disk — one textured ring, reads as light not plastic */}
         <mesh ref={disk}>
           <ringGeometry args={[3.8, 16.5, 128]} />
@@ -150,21 +144,19 @@ function BlackHole({
             side={THREE.DoubleSide}
           />
         </mesh>
-        {/* orbit guides = chapter rings — homepage only; inner pages find them redundant */}
-        {ambient
-          ? null
-          : RING_INFO.map((ring, i) => (
-              <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
-                <torusGeometry args={[ring.r, 0.09, 8, 128]} />
-                <meshBasicMaterial
-                  color={ring.color}
-                  transparent
-                  opacity={i === activeRing ? 0.95 : ring.opacity * 0.5}
-                  blending={THREE.AdditiveBlending}
-                  depthWrite={false}
-                />
-              </mesh>
-            ))}
+        {/* orbit guides = chapter rings */}
+        {RING_INFO.map((ring, i) => (
+          <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[ring.r, 0.09, 8, 128]} />
+            <meshBasicMaterial
+              color={ring.color}
+              transparent
+              opacity={i === activeRing ? 0.95 : ring.opacity * 0.5}
+              blending={THREE.AdditiveBlending}
+              depthWrite={false}
+            />
+          </mesh>
+        ))}
       </group>
       {/* the shadow — light does not escape */}
       <mesh>
@@ -199,30 +191,12 @@ function FallCamera({ progress }: { progress: number }) {
   return null;
 }
 
-function AmbientCamera() {
-  const { camera } = useThree();
-  useFrame(({ viewport }) => {
-    camera.position.z += (72 - camera.position.z) * 0.05;
-    camera.position.y += (4 - camera.position.y) * 0.05;
-    camera.lookAt(viewport.aspect < 1 ? 0 : 14, 2, -20);
-  });
-  return null;
-}
-
-function Scene({
-  progress,
-  activeRing,
-  ambient,
-}: {
-  progress: number;
-  activeRing: number;
-  ambient: boolean;
-}) {
+function Scene({ progress, activeRing }: { progress: number; activeRing: number }) {
   return (
     <>
-      {ambient ? <AmbientCamera /> : <FallCamera progress={progress} />}
+      <FallCamera progress={progress} />
       <StarField />
-      <BlackHole activeRing={activeRing} ambient={ambient} />
+      <BlackHole activeRing={activeRing} />
       <EffectComposer>
         <Bloom intensity={1.1} luminanceThreshold={0.15} mipmapBlur radius={0.7} />
       </EffectComposer>
@@ -231,16 +205,13 @@ function Scene({
 }
 
 /**
- * The Event Horizon — shared 3D world backdrop.
- * mode="journey": scroll-driven fall toward the horizon (homepage).
- * mode="ambient": slow drift, hole parked right (inner pages, desktop only).
+ * The Event Horizon — the 3D world backdrop (homepage only).
+ * Scroll-driven fall toward the horizon; mobile raises the hole above the hero.
  */
 export default function WorldCanvas({
-  mode = "ambient",
   progress = 0,
-  activeRing = -1,
+  activeRing = 0,
 }: {
-  mode?: "journey" | "ambient";
   progress?: number;
   activeRing?: number;
 }) {
@@ -260,11 +231,7 @@ export default function WorldCanvas({
       {webgl ? (
         <Canvas camera={{ position: [0, 2, 78], fov: 55 }} dpr={[1, 1.75]}>
           <Suspense fallback={null}>
-            <Scene
-              progress={progress}
-              activeRing={activeRing}
-              ambient={mode === "ambient"}
-            />
+            <Scene progress={progress} activeRing={activeRing} />
           </Suspense>
         </Canvas>
       ) : (

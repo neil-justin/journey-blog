@@ -118,7 +118,7 @@ export default function DeepHome() {
   return (
     <main className="min-h-screen bg-[#07070a] text-[#e6f1ff] selection:bg-[#ffc857] selection:text-[#07070a]">
       {/* 3D layer */}
-      <WorldCanvas mode="journey" progress={progress} activeRing={activeRing} />
+      <WorldCanvas progress={progress} activeRing={activeRing} />
 
       {/* left scrim: keeps the text column dark even when the disk glows */}
       <div
@@ -132,7 +132,7 @@ export default function DeepHome() {
 
       {/* content */}
       <div className="relative z-10">
-        <header className="flex flex-wrap items-baseline justify-between gap-3 px-5 sm:px-10 py-6">
+        <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 bg-[#07070a]/70 px-5 py-6 backdrop-blur-md sm:px-10">
           <p className="font-mono tracking-[0.5em] text-sm">
             NEIL JUSTIN MALLARI
             <span className="block text-[10px] tracking-[0.34em] text-[#4a79bb] mt-1">

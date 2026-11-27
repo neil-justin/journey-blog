@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
-import WorldCanvas from "../components/WorldCanvas";
 import SiteNav from "../components/SiteNav";
 
 export const metadata: Metadata = {
@@ -12,26 +11,8 @@ export const metadata: Metadata = {
 export default function InnerLayout({ children }: { children: ReactNode }) {
   return (
     <div className="relative min-h-screen bg-[#07070a] text-[#e6f1ff] selection:bg-[#ffc857] selection:text-[#07070a]">
-      {/* same Event Horizon world as the homepage — desktop only; mobile keeps solid ground */}
-      <div className="hidden md:block">
-        <WorldCanvas mode="ambient" />
-      </div>
-      <div
-        aria-hidden
-        className="fixed inset-0 z-[1] hidden md:block pointer-events-none"
-        style={{
-          background:
-            "linear-gradient(90deg, rgba(7,7,10,0.9) 0%, rgba(7,7,10,0.6) 35%, transparent 60%)",
-        }}
-      />
-      {/* mobile: static on-world glow instead of WebGL */}
-      <div
-        aria-hidden
-        className="fixed inset-0 z-0 md:hidden bg-[radial-gradient(ellipse_at_50%_30%,#1a2a4a_0%,#07070a_65%)]"
-      />
-
       <div className="relative z-10">
-        <header className="flex flex-wrap items-baseline justify-between gap-3 px-5 sm:px-10 py-6">
+        <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 border-b border-[#161f2e] bg-[#07070a]/80 px-5 py-6 backdrop-blur-md sm:px-10">
           <Link href="/" className="font-mono tracking-[0.5em] text-sm">
             NEIL JUSTIN MALLARI
             <span className="block text-[10px] tracking-[0.34em] text-[#4a79bb] mt-1">
