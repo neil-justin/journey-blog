@@ -112,34 +112,30 @@ const RING_INFO = [
 function BlackHole({ activeRing }: { activeRing: number }) {
   const disk = useRef<THREE.Mesh>(null);
   const group = useRef<THREE.Group>(null);
-  const { viewport } = useThree();
   const diskTexture = useDiskTexture();
   const glow = useStarTexture("#ffc857");
-  const narrow = viewport.aspect < 1;
 
   useFrame((state, delta) => {
     if (disk.current) disk.current.rotation.z -= delta * 0.22;
     if (group.current) {
       const s = 1 + Math.sin(state.clock.elapsedTime * 1.3) * 0.008;
-      group.current.scale.setScalar(s * (narrow ? 0.62 : 1));
+      group.current.scale.setScalar(s);
 
       // dynamically center the hole in the right half of the screen (75% width)
       // at any window size/aspect ratio, and keep it there while scrolling
-      if (!narrow) {
-        const cam = state.camera as THREE.PerspectiveCamera;
-        const dist = cam.position.z - group.current.position.z;
-        const viewH = 2 * dist * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
-        const viewW = viewH * (state.size.width / state.size.height);
-        group.current.position.x = 0.25 * viewW; // +25% from center = 75% of screen
-      }
+      const cam = state.camera as THREE.PerspectiveCamera;
+      const dist = cam.position.z - group.current.position.z;
+      const viewH = 2 * dist * Math.tan(THREE.MathUtils.degToRad(cam.fov / 2));
+      const viewW = viewH * (state.size.width / state.size.height);
+      group.current.position.x = 0.25 * viewW; // +25% from center = 75% of screen
     }
   });
 
   return (
     <group
       ref={group}
-      // x is computed every frame to stay centered in the right half; mobile: raised above the hero text
-      position={[0, narrow ? 12 : 2, -20]}
+      // x is computed every frame to stay centered in the right half
+      position={[0, 2, -20]}
     >
       <group rotation={[1.22, 0, 0]}>
         {/* the accretion disk — one textured ring, reads as light not plastic */}
@@ -200,12 +196,33 @@ function FallCamera({ progress }: { progress: number }) {
   return null;
 }
 
-function Scene({ progress, activeRing }: { progress: number; activeRing: number }) {
+/** Inner pages: same star pattern, no journey — a gentle fixed drift. */
+function AmbientCamera() {
+  const { camera } = useThree();
+  useFrame(() => {
+    camera.position.z += (78 - camera.position.z) * 0.05;
+    camera.position.y += (2 - camera.position.y) * 0.05;
+    camera.lookAt(0, 1, -20);
+  });
+  return null;
+}
+
+function Scene({
+  mode,
+  progress,
+  activeRing,
+  hole,
+}: {
+  mode: "journey" | "ambient";
+  progress: number;
+  activeRing: number;
+  hole: boolean;
+}) {
   return (
     <>
-      <FallCamera progress={progress} />
+      {mode === "journey" ? <FallCamera progress={progress} /> : <AmbientCamera />}
       <StarField />
-      <BlackHole activeRing={activeRing} />
+      {hole && <BlackHole activeRing={activeRing} />}
       <EffectComposer>
         <Bloom intensity={1.1} luminanceThreshold={0.15} mipmapBlur radius={0.7} />
       </EffectComposer>
@@ -214,17 +231,24 @@ function Scene({ progress, activeRing }: { progress: number; activeRing: number 
 }
 
 /**
- * The Event Horizon — the 3D world backdrop (homepage only).
- * Scroll-driven fall toward the horizon; mobile raises the hole above the hero.
+ * The Event Horizon — the 3D world backdrop.
+ * mode="journey" (homepage): scroll-driven fall, hole + chapter rings.
+ * mode="ambient" (inner pages): same star pattern, no hole, no rings.
+ * The hole renders on desktop only (lg+) on every viewport.
  */
 export default function WorldCanvas({
+  mode = "ambient",
+  hole = false,
   progress = 0,
   activeRing = 0,
 }: {
+  mode?: "journey" | "ambient";
+  hole?: boolean;
   progress?: number;
   activeRing?: number;
 }) {
   const [webgl, setWebgl] = useState(false);
+  const [desktop, setDesktop] = useState(false);
 
   useEffect(() => {
     try {
@@ -233,14 +257,26 @@ export default function WorldCanvas({
     } catch {
       setWebgl(false);
     }
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const update = () => setDesktop(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
   }, []);
+
+  const showHole = hole && desktop;
 
   return (
     <div className="fixed inset-0 z-0" aria-hidden>
       {webgl ? (
         <Canvas camera={{ position: [0, 2, 78], fov: 55 }} dpr={[1, 1.75]}>
           <Suspense fallback={null}>
-            <Scene progress={progress} activeRing={activeRing} />
+            <Scene
+              mode={mode}
+              progress={progress}
+              activeRing={activeRing}
+              hole={showHole}
+            />
           </Suspense>
         </Canvas>
       ) : (

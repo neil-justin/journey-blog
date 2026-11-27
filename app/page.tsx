@@ -118,7 +118,7 @@ export default function DeepHome() {
   return (
     <main className="min-h-screen bg-[#07070a] text-[#e6f1ff] selection:bg-[#ffc857] selection:text-[#07070a]">
       {/* 3D layer */}
-      <WorldCanvas progress={progress} activeRing={activeRing} />
+      <WorldCanvas mode="journey" hole progress={progress} activeRing={activeRing} />
 
       {/* left scrim: keeps the text column dark even when the disk glows */}
       <div
