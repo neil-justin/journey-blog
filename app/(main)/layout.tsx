@@ -16,8 +16,11 @@ export default function InnerLayout({ children }: { children: ReactNode }) {
       <WorldCanvas mode="ambient" />
 
       <div className="relative z-10">
-        <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 border-b border-[#161f2e] bg-[#07070a]/80 px-5 py-6 backdrop-blur-md sm:px-10">
-          <Link href="/" className="font-mono tracking-[0.5em] text-sm">
+        <header className="sticky top-0 z-20 flex items-baseline justify-between gap-3 border-b border-[#161f2e] bg-[#07070a]/80 px-5 py-6 backdrop-blur-md sm:px-10">
+          <Link
+            href="/"
+            className="whitespace-nowrap font-mono text-xs tracking-[0.25em] sm:text-sm sm:tracking-[0.5em]"
+          >
             NEIL JUSTIN MALLARI
           </Link>
           <SiteNav />

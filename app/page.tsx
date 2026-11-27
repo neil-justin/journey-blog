@@ -1,7 +1,7 @@
 "use client";
 
 import WorldCanvas from "./components/WorldCanvas";
-import Link from "next/link";
+import SiteNav from "./components/SiteNav";
 import { useRef, useState, useEffect } from "react";
 
 /* ---------------- content ---------------- */
@@ -81,13 +81,6 @@ const SECTIONS = [
 
 const SECTION_IDS = ["intro", ...SECTIONS.map((s) => s.id), "reflection"];
 
-const NAV = [
-  { href: "/", label: "HOME" },
-  { href: "/posts", label: "POSTS" },
-  { href: "/about", label: "ABOUT" },
-  { href: "/contact", label: "CONTACT" },
-];
-
 export default function DeepHome() {
   const [progress, setProgress] = useState(0);
   const [activeRing, setActiveRing] = useState(0);
@@ -132,17 +125,11 @@ export default function DeepHome() {
 
       {/* content */}
       <div className="relative z-10">
-        <header className="sticky top-0 z-20 flex flex-wrap items-baseline justify-between gap-3 bg-[#07070a]/70 px-5 py-6 backdrop-blur-md sm:px-10">
-          <p className="font-mono tracking-[0.5em] text-sm">
+        <header className="sticky top-0 z-20 flex items-baseline justify-between gap-3 bg-[#07070a]/70 px-5 py-6 backdrop-blur-md sm:px-10">
+          <p className="whitespace-nowrap font-mono text-xs tracking-[0.25em] sm:text-sm sm:tracking-[0.5em]">
             NEIL JUSTIN MALLARI
           </p>
-          <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
-            {NAV.map((l) => (
-              <Link key={l.href} className="hover:text-[#ffc857]" href={l.href}>
-                {l.label}
-              </Link>
-            ))}
-          </nav>
+          <SiteNav />
         </header>
 
         <div className="mx-auto max-w-2xl sm:px-10 px-5 pb-40 lg:mx-0 lg:ml-[6vw]">
