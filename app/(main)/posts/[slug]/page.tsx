@@ -30,7 +30,13 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
       <h1 className="mt-4 text-2xl sm:text-3xl font-display leading-snug">
         {post.title}
       </h1>
-      <div className="prose-invert mt-10 border-l border-[#223247] pl-6 [&_h2]:mt-10 [&_h2]:font-display [&_h2]:text-xl [&_li]:text-[#c8d6e5] [&_p]:text-sm [&_p]:text-[#c8d6e5] [&_p]:leading-relaxed [&_p]:font-light [&_strong]:text-[#ffc857]">
+      <img
+        src={`/posts/art/${post.slug}.svg`}
+        alt=""
+        aria-hidden
+        className="mt-8 block w-full border border-[#223247] bg-[#07070a]"
+      />
+      <div className="prose-invert mt-8 border border-[#223247] bg-[#07070a]/80 p-6 sm:p-8 [&_h2]:mt-8 [&_h2]:font-display [&_h2]:text-xl [&_h2]:first:mt-0 [&_li]:text-[#c8d6e5] [&_p]:text-sm [&_p]:text-[#c8d6e5] [&_p]:leading-relaxed [&_p]:font-light [&_strong]:text-[#ffc857]">
         <MDXRemote source={post.content} />
       </div>
       <div className="mt-16 flex justify-between text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">
