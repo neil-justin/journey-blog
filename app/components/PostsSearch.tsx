@@ -95,7 +95,7 @@ export default function PostsSearch({ items }: { items: PostSearchItem[] }) {
             >
               <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
                 <img
-                  src={`/posts/art/${item.slug}.svg`}
+                  src={`/posts/${item.slug}.jpg`}
                   alt=""
                   aria-hidden
                   className="block w-full shrink-0 border border-[#223247] object-cover object-right sm:w-52"

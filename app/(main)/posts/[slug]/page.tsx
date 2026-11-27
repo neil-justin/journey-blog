@@ -31,7 +31,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
         {post.title}
       </h1>
       <img
-        src={`/posts/art/${post.slug}.svg`}
+        src={`/posts/${post.slug}.jpg`}
         alt=""
         aria-hidden
         className="mt-8 block w-full border border-[#223247] bg-[#07070a]"
