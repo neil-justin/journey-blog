@@ -61,7 +61,11 @@ export default function ContactForm() {
     "idle",
   );
 
-  const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID;
+  // accept either the bare hash or the full endpoint URL pasted from the dashboard
+  const formspreeId = process.env.NEXT_PUBLIC_FORMSPREE_FORM_ID?.replace(
+    /^https:\/\/formspree\.io\/f\//,
+    "",
+  );
 
   function set<K extends keyof Fields>(key: K, value: string) {
     const next = { ...fields, [key]: value };
