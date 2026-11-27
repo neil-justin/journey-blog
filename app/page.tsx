@@ -1,205 +1,8 @@
 "use client";
 
-import { Canvas } from "@react-three/fiber";
-import { EffectComposer, Bloom } from "@react-three/postprocessing";
-import { useRef, useState, useEffect, useMemo, Suspense } from "react";
-import { useFrame, useThree } from "@react-three/fiber";
-import * as THREE from "three";
-
-/* ---------------- textures (generated, no assets needed) ---------------- */
-
-function useStarTexture(color = "#ffffff") {
-  return useMemo(() => {
-    const c = document.createElement("canvas");
-    c.width = c.height = 64;
-    const ctx = c.getContext("2d")!;
-    const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32);
-    g.addColorStop(0, color);
-    g.addColorStop(0.35, color + "cc");
-    g.addColorStop(1, "transparent");
-    ctx.fillStyle = g;
-    ctx.fillRect(0, 0, 64, 64);
-    return new THREE.CanvasTexture(c);
-  }, [color]);
-}
-
-/** Accretion disk texture: hot white-gold inner edge cooling to blue outer bands. */
-function useDiskTexture() {
-  return useMemo(() => {
-    const size = 1024;
-    const c = document.createElement("canvas");
-    c.width = c.height = size;
-    const ctx = c.getContext("2d")!;
-    const cx = size / 2;
-    // radial bands with noise — hot near center, cool at edge
-    let seed = 7;
-    const rand = () => {
-      seed = (seed * 16807) % 2147483647;
-      return seed / 2147483647;
-    };
-    for (let i = 0; i < 340; i++) {
-      const t = rand(); // 0 = inner, 1 = outer
-      const r = 90 + t * (size / 2 - 100);
-      const bandWidth = 6 + rand() * 22;
-      const hot = 1 - t;
-      const col = `rgba(${Math.round(200 + 55 * hot)},${Math.round(
-        150 + 80 * hot
-      )},${Math.round(90 + 165 * (1 - hot))},${(0.10 + rand() * 0.35) * (0.35 + 0.65 * hot)})`;
-      ctx.beginPath();
-      ctx.strokeStyle = col;
-      ctx.lineWidth = bandWidth;
-      // slightly wobbly arc per band
-      const a0 = rand() * Math.PI * 2;
-      const a1 = a0 + (1 + rand() * 3) * (Math.PI / 3);
-      ctx.arc(cx, cx, r, a0, a1);
-      ctx.stroke();
-    }
-    const t = new THREE.CanvasTexture(c);
-    t.needsUpdate = true;
-    return t;
-  }, []);
-}
-
-/* ---------------- scene pieces ---------------- */
-
-function StarField() {
-  const ref = useRef<THREE.Points>(null);
-  const sprite = useStarTexture("#cfe4ff");
-  const positions = useMemo(() => {
-    let seed = 42;
-    const rand = () => {
-      seed = (seed * 16807) % 2147483647;
-      return seed / 2147483647;
-    };
-    const p = new Float32Array(1200 * 3);
-    for (let i = 0; i < 1200; i++) {
-      p[i * 3] = (rand() - 0.5) * 400;
-      p[i * 3 + 1] = (rand() - 0.5) * 400;
-      p[i * 3 + 2] = (rand() - 0.5) * 400 - 100;
-    }
-    return p;
-  }, []);
-  useFrame((_, delta) => {
-    if (ref.current) ref.current.rotation.y += delta * 0.004;
-  });
-  return (
-    <points ref={ref}>
-      <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
-      </bufferGeometry>
-      <pointsMaterial
-        map={sprite}
-        alphaTest={0.01}
-        size={1.3}
-        color="#cfe4ff"
-        sizeAttenuation
-        transparent
-        opacity={0.9}
-        blending={THREE.AdditiveBlending}
-        depthWrite={false}
-      />
-    </points>
-  );
-}
-
-const RING_INFO = [
-  { r: 15.5, color: "#4a79bb", opacity: 0.32 }, // 1st year — outer
-  { r: 12.5, color: "#5f92cc", opacity: 0.4 },
-  { r: 9.5, color: "#e6f1ff", opacity: 0.5 },
-  { r: 6.8, color: "#ff3e1f", opacity: 0.55 }, // OJT — the red ring
-  { r: 4.6, color: "#ffc857", opacity: 0.7 }, // 4th year — inner, now
-];
-
-function BlackHole({ activeRing }: { activeRing: number }) {
-  const disk = useRef<THREE.Mesh>(null);
-  const group = useRef<THREE.Group>(null);
-  const { viewport } = useThree();
-  const diskTexture = useDiskTexture();
-  const glow = useStarTexture("#ffc857");
-  const narrow = viewport.aspect < 1;
-
-  useFrame((state, delta) => {
-    if (disk.current) disk.current.rotation.z -= delta * 0.22;
-    if (group.current) {
-      const s = 1 + Math.sin(state.clock.elapsedTime * 1.3) * 0.008;
-      group.current.scale.setScalar(s * (narrow ? 0.62 : 1));
-    }
-  });
-
-  return (
-    <group ref={group} position={[narrow ? 0 : 18, narrow ? 9 : 1, -20]}>
-      <group rotation={[1.22, 0, 0.3]}>
-        {/* the accretion disk — one textured ring, reads as light not plastic */}
-        <mesh ref={disk}>
-          <ringGeometry args={[3.8, 16.5, 128]} />
-          <meshBasicMaterial
-            map={diskTexture}
-            transparent
-            opacity={0.95}
-            blending={THREE.AdditiveBlending}
-            depthWrite={false}
-            side={THREE.DoubleSide}
-          />
-        </mesh>
-        {/* orbit guides = chapter rings */}
-        {RING_INFO.map((ring, i) => (
-          <mesh key={i} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[ring.r, 0.09, 8, 128]} />
-            <meshBasicMaterial
-              color={ring.color}
-              transparent
-              opacity={i === activeRing ? 0.95 : ring.opacity * 0.5}
-              blending={THREE.AdditiveBlending}
-              depthWrite={false}
-            />
-          </mesh>
-        ))}
-      </group>
-      {/* the shadow — light does not escape */}
-      <mesh>
-        <sphereGeometry args={[3.4, 48, 48]} />
-        <meshBasicMaterial color="#000000" />
-      </mesh>
-      {/* photon glow just outside the shadow */}
-      <sprite scale={[13, 13, 1]}>
-        <spriteMaterial
-          map={glow}
-          color="#ffc857"
-          transparent
-          opacity={0.5}
-          blending={THREE.AdditiveBlending}
-          depthWrite={false}
-        />
-      </sprite>
-    </group>
-  );
-}
-
-function FallCamera({ progress }: { progress: number }) {
-  const { camera } = useThree();
-  const { viewport } = useThree();
-  useFrame(() => {
-    const targetZ = 78 - progress * 50; // 78 → 28
-    camera.position.z += (targetZ - camera.position.z) * 0.06;
-    camera.position.y += (2 - camera.position.y) * 0.06;
-    // desktop: hole sits in the right half; mobile: centered above text
-    camera.lookAt(viewport.aspect < 1 ? 0 : 7, 1, -20);
-  });
-  return null;
-}
-
-function Scene({ progress, activeRing }: { progress: number; activeRing: number }) {
-  return (
-    <>
-      <FallCamera progress={progress} />
-      <StarField />
-      <BlackHole activeRing={activeRing} />
-      <EffectComposer>
-        <Bloom intensity={1.1} luminanceThreshold={0.15} mipmapBlur radius={0.7} />
-      </EffectComposer>
-    </>
-  );
-}
+import WorldCanvas from "./components/WorldCanvas";
+import Link from "next/link";
+import { useRef, useState, useEffect } from "react";
 
 /* ---------------- content ---------------- */
 
@@ -278,20 +81,17 @@ const SECTIONS = [
 
 const SECTION_IDS = ["intro", ...SECTIONS.map((s) => s.id), "reflection"];
 
+const NAV = [
+  { href: "/", label: "HOME" },
+  { href: "/posts", label: "POSTS" },
+  { href: "/about", label: "ABOUT" },
+  { href: "/contact", label: "CONTACT" },
+];
+
 export default function DeepHome() {
   const [progress, setProgress] = useState(0);
   const [activeRing, setActiveRing] = useState(0);
-  const [webgl, setWebgl] = useState(true);
   const [active, setActive] = useState("intro");
-
-  useEffect(() => {
-    try {
-      const c = document.createElement("canvas");
-      setWebgl(!!(c.getContext("webgl2") || c.getContext("webgl")));
-    } catch {
-      setWebgl(false);
-    }
-  }, []);
 
   useEffect(() => {
     const onScroll = () => {
@@ -318,17 +118,7 @@ export default function DeepHome() {
   return (
     <main className="min-h-screen bg-[#07070a] text-[#e6f1ff] selection:bg-[#ffc857] selection:text-[#07070a]">
       {/* 3D layer */}
-      <div className="fixed inset-0 z-0">
-        {webgl ? (
-          <Canvas camera={{ position: [0, 2, 78], fov: 55 }} dpr={[1, 1.75]}>
-            <Suspense fallback={null}>
-              <Scene progress={progress} activeRing={activeRing} />
-            </Suspense>
-          </Canvas>
-        ) : (
-          <div className="h-full w-full bg-[radial-gradient(ellipse_at_50%_45%,#1a2a4a_0%,#07070a_65%)]" />
-        )}
-      </div>
+      <WorldCanvas mode="journey" progress={progress} activeRing={activeRing} />
 
       {/* left scrim: keeps the text column dark even when the disk glows */}
       <div
@@ -349,25 +139,29 @@ export default function DeepHome() {
               MY JOURNEY FROM 1ST YEAR TO OJT — IN 3D
             </span>
           </p>
-          <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
-            <a className="hover:text-[#ffc857]" href="/">HOME</a>
-            <a className="hover:text-[#ffc857]" href="/posts">POSTS</a>
-            <a className="hover:text-[#ffc857]" href="/about">ABOUT</a>
-            <a className="hover:text-[#ffc857]" href="/contact">CONTACT</a>
+          <nav className="flex gap-5 text-[13px] tracking-[0.22em] text-[#8fa8c0] font-mono">
+            {NAV.map((l) => (
+              <Link key={l.href} className="hover:text-[#ffc857]" href={l.href}>
+                {l.label}
+              </Link>
+            ))}
           </nav>
         </header>
 
         <div className="mx-auto max-w-2xl sm:px-10 px-5 pb-40 lg:mx-0 lg:ml-[6vw]">
-          <section className="pt-[42vh]" id="intro">
+          {/* hero fills the first viewport, vertically centered */}
+          <section
+            id="intro"
+            className="flex min-h-[calc(100svh-120px)] flex-col justify-center"
+          >
             <p className="text-[11px] font-mono tracking-[0.4em] text-[#4a79bb] drop-shadow-[0_2px_8px_rgba(7,7,10,1)]">
               MY JOURNEY AS A CS STUDENT
             </p>
-            <h1 className="mt-6 text-3xl sm:text-5xl leading-snug font-bold font-display drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
-              From 1st year
-              <br />
-              to <span className="text-[#ffc857]">OJT and beyond.</span>
+            <h1 className="mt-6 text-4xl sm:text-6xl leading-snug font-bold font-display drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
+              From 1st year to{" "}
+              <span className="text-[#ffc857]">OJT and beyond.</span>
             </h1>
-            <p className="mt-6 text-sm sm:text-lg text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
+            <p className="mt-6 text-base sm:text-xl text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
               This blog is my whole journey as a computer science student — the
               subjects, the projects, and my real work experience. Scroll down to
               travel through it. The closer you get to the center, the closer to
@@ -386,12 +180,12 @@ export default function DeepHome() {
                   {active === o.id ? "● YOU ARE HERE" : "CHAPTER"} — {o.label}
                   {o.status.startsWith("NOW") ? " · " + o.status : ""}
                 </p>
-                <p className="mt-4 text-sm sm:text-base text-[#c8d6e5] leading-relaxed font-light">
+                <p className="mt-4 text-base sm:text-lg text-[#c8d6e5] leading-relaxed font-light">
                   {o.text}
                 </p>
                 <ul className="mt-5 space-y-2">
                   {o.entries.map((entry) => (
-                    <li key={entry} className="text-[13px] text-[#8fa8c0] flex items-baseline gap-3">
+                    <li key={entry} className="text-[15px] text-[#8fa8c0] flex items-baseline gap-3">
                       <span className="text-[#ffc857]">◦</span>
                       {entry}
                     </li>
@@ -413,15 +207,14 @@ export default function DeepHome() {
               <p className="text-[10px] tracking-[0.4em] text-[#ffc857]">
                 ● EVENT HORIZON — FINAL REFLECTION
               </p>
-              <h2 className="mt-4 text-2xl sm:text-3xl font-extralight leading-snug">
+              <h2 className="mt-4 text-3xl sm:text-4xl font-extralight leading-snug">
                 One last post after everything.
               </h2>
-              <p className="mt-4 text-sm sm:text-base text-[#c8d6e5] font-light leading-relaxed">
+              <p className="mt-4 text-base sm:text-lg text-[#c8d6e5] font-light leading-relaxed">
                 A final reflection on the whole trip — what four years and one
                 career actually taught me.
               </p>
             </div>
-            <div className="scroll-mt-10" />
             <p className="mt-16 text-center text-[10px] tracking-[0.34em] text-[#223247]">
               — CENTER OF THE GRAVITY WELL —
             </p>

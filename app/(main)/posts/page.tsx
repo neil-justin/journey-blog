@@ -14,8 +14,8 @@ function PostCard({ post }: { post: Post }) {
       <p className="text-[10px] font-mono tracking-[0.4em] text-[#4a79bb]">
         {post.date} — {PHASE_LABELS[post.phase]}
       </p>
-      <h2 className="mt-3 text-lg sm:text-xl font-display">{post.title}</h2>
-      <p className="mt-3 text-sm text-[#c8d6e5] font-light leading-relaxed">
+      <h2 className="mt-4 text-xl sm:text-2xl font-display">{post.title}</h2>
+      <p className="mt-3 text-base text-[#c8d6e5] font-light leading-relaxed">
         {post.excerpt}
       </p>
       <p className="mt-4 text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">
@@ -30,8 +30,8 @@ export default async function PostsPage() {
 
   return (
     <section className="pt-16">
-      <h1 className="text-2xl sm:text-3xl font-display">Posts</h1>
-      <p className="mt-4 text-sm text-[#c8d6e5] font-light">
+      <h1 className="text-3xl sm:text-4xl font-display">Posts</h1>
+      <p className="mt-4 text-base text-[#c8d6e5] font-light">
         The whole journey, in order — 1st year through OJT, ending with a final
         reflection.
       </p>

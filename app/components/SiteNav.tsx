@@ -1,3 +1,7 @@
+"use client";
+
+import Link from "next/link";
+
 const LINKS = [
   { href: "/", label: "HOME" },
   { href: "/posts", label: "POSTS" },
@@ -7,11 +11,11 @@ const LINKS = [
 
 export default function SiteNav() {
   return (
-    <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
+    <nav className="flex gap-5 text-[13px] tracking-[0.22em] text-[#8fa8c0] font-mono">
       {LINKS.map((l) => (
-        <a key={l.href} className="hover:text-[#ffc857]" href={l.href}>
+        <Link key={l.href} className="hover:text-[#ffc857]" href={l.href}>
           {l.label}
-        </a>
+        </Link>
       ))}
     </nav>
   );
