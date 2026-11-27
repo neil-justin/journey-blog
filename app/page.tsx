@@ -350,10 +350,10 @@ export default function DeepHome() {
             </span>
           </p>
           <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
-            <a className="hover:text-[#ffc857]" href="#intro">HOME</a>
-            <a className="hover:text-[#ffc857]" href="#first-year">POSTS</a>
-            <a className="hover:text-[#ffc857]" href="#about">ABOUT</a>
-            <a className="hover:text-[#ffc857]" href="#contact">CONTACT</a>
+            <a className="hover:text-[#ffc857]" href="/">HOME</a>
+            <a className="hover:text-[#ffc857]" href="/posts">POSTS</a>
+            <a className="hover:text-[#ffc857]" href="/about">ABOUT</a>
+            <a className="hover:text-[#ffc857]" href="/contact">CONTACT</a>
           </nav>
         </header>
 
@@ -421,8 +421,7 @@ export default function DeepHome() {
                 career actually taught me.
               </p>
             </div>
-            <div id="about" className="scroll-mt-10" />
-            <div id="contact" className="scroll-mt-10" />
+            <div className="scroll-mt-10" />
             <p className="mt-16 text-center text-[10px] tracking-[0.34em] text-[#223247]">
               — CENTER OF THE GRAVITY WELL —
             </p>
