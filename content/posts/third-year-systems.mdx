@@ -6,16 +6,14 @@ date: 2026-11-27
 excerpt: Operating systems, networks, and the year the classroom finally ended — because real work began.
 ---
 
-# 3rd Year — Systems
+Third year was the heaviest academic year I had, and it ended somewhere I didn't expect.
 
-Third year was the heaviest academic year I had, and it ended in a way I didn't expect.
+Operating Systems retired a picture I'd carried since first year: the OS as weather, something that just happens to my programs. After OS 101 I could see the machinery — processes, scheduling, memory. The piece that stayed was concurrency: many actors, shared resources, no global clock. We had a lab where two threads incremented a shared counter and the final number came out different every run, and the professor made us explain why before he'd let it go. I have thought about that counter on roughly every production system I've touched since.
 
-Operating Systems retired a picture I'd been carrying since first year: the OS as weather, something that just happens to my programs. After OS 101 I could see the machinery — processes, scheduling, memory. The idea that stayed with me most was concurrency: many actors, shared resources, no global clock. Working on a multi-tenant platform years later, that question — what happens when two things touch the same resource at once? — has never once been irrelevant.
+Networks made the same move across machines. The internet is agreements all the way down, most of them older than me. Wireshark labs did more for me than any diagram — latency and partial failure stop being textbook words the first time you watch your own packets retry.
 
-Networks and Communications extended the idea across machines. The internet is agreements all the way down, most of them older than me. And distributed systems fail gracefully in diagrams and chaotically in reality — latency, partial failure, retries were textbook concerns here, then concrete ones the first time my code met a real user on a real connection.
+Around this era I built MarkNote, a MERN-stack note app with Docker, deliberately practicing the whole path: data model, API, frontend, deployment. Deployment was where it got real. Docker on my laptop (8GB of RAM, no mercy) took two full evenings of reading error messages I mostly didn't understand. It's on GitHub. Not the prettiest thing I've made, but the first one where every layer was mine.
 
-Application Development and Emerging Technologies pulled the year together toward complete applications. Around this era I built MarkNote — a MERN-stack note app with Docker — deliberately practicing the full path: data model, API, frontend, deployment. It's on GitHub, and it was the closest thing I'd made to a real product.
-
-This post ends where it does for a reason. Halfway through this year, while still working through my degree, I started my first software engineering job. The classroom didn't stop being important. It stopped being enough.
+Halfway through this year, still working through the degree, I started my first software engineering job. That's the real boundary of third year: the classroom didn't stop being important. It stopped being enough.
 
 That story is next.

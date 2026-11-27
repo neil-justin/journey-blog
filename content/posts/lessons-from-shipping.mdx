@@ -6,20 +6,14 @@ date: 2026-11-27
 excerpt: Lessons only industry gives — users, tradeoffs, deadlines, and the difference between finished and shipped.
 ---
 
-# What Shipping Taught Me
+The two jobs are in the previous posts. This is the residue.
 
-Two jobs compressed a lot of education into a short time. The stories are in the previous posts; this is the distillation.
+The MongoDB thing. The Career Team dashboard was slow — eight, ten seconds a page. I was sure it was the frontend. Two days of memoizing and splitting requests, nothing. Then an explain() on a profiles query showed COLLSCAN: we queried by tenantId + createdAt but had an index on tenantId only. One compound index later, under a second. I got an A in Data Structures and still needed two days and a wrong guess to remember the course existed.
 
-**Done is a performance word.** In school, done meant "works on the test cases." In production, done means working in front of people who didn't write it and don't care how it works. The configurable workforce forms at Career Team taught me a feature is done when a client uses it in a way I never imagined — real usage is the only test suite that never lies.
+Deadlines. My first release, I treated the date like a school deadline. My lead asked on day three what was getting cut. Not whether I'd finish — what was getting cut. School projects are scoped so you can finish. Real ones aren't, so deciding what "done enough" means, early, out loud, is part of the job.
 
-**Performance problems are data problems.** The slow MongoDB queries behind the admin dashboard weren't a UI issue, a framework issue, or a server issue. They were a data-shape issue. Second-year Data Structures and Algorithms was right, and it took real users waiting on a real dashboard to prove it.
+Thorne taught me what vague specs cost. I left notification behavior undefined in one spec because it seemed obvious. It wasn't. The engineer built the wrong call, cost a week to rewrite. The fix wasn't longer specs. It was answering questions before the next standup instead of after the demo.
 
-**Ambiguity is the actual job.** School problems arrive fully specified. Real work doesn't. The most valuable thing I did at either company — specs at Thorne, the developer↔product bridge at Career Team — was turning vague intentions into precise decisions before those intentions became rework.
+The interviews. Roughly 55 candidates at Thorne, and I noticed I kept grading people against a version of me that never pauses or says "I'm not sure." The ones I pushed to hire thought out loud and admitted their edges. I interview myself that way now. Slower to answer, better to work with. I think.
 
-**Leadership is service made visible.** Reviewing code carefully, unblocking an intern, onboarding a new engineer: none of it looked like leadership from the inside. It looked like making other people's work possible. That's what it is.
-
-**Interviews are mirrors.** Around 55 interviews at Thorne plus candidate interviews at Career Team gave me an external standard for what competence looks like: calm reasoning, admitted limits, structure under pressure.
-
-**Deadlines are honest.** Releases, clients, and teammates depend on the date. The skill isn't panic — it's deciding what done-enough means, cutting deliberately, and communicating the tradeoff early.
-
-Software is a social object: built with people, for people, against time. The engineering is the easy half of that sentence.
+One more, smaller. Real software stays yours after you ship it. A forms feature I built came back six months later — a client had built an entire intake workflow out of it, one I never designed for. Assignments end at submission. This doesn't. Not a complaint. Just the thing I wasn't ready for.

@@ -14,7 +14,7 @@ const SECTIONS = [
     label: "1ST YEAR",
     status: "FOUNDATIONS",
     color: "#4a79bb",
-    text: "The start. Basic subjects, first programs, first all-nighters. Everything after this year assumed I learned these well.",
+    text: "The start. First programs, first all-nighters, first quiz I bombed. The rest of the degree builds on this year.",
     entries: [
       "CC 101 · Introduction to Computing",
       "CC 102 · Computer Programming 1",
@@ -28,7 +28,7 @@ const SECTIONS = [
     label: "2ND YEAR",
     status: "STRUCTURE",
     color: "#5f92cc",
-    text: "Orbit tightens. Data structures, OOP, and my first security classes. School started to feel like real engineering.",
+    text: "Data structures, OOP, and my first security class. Also the year I built Tasky, the first thing I made for myself.",
     entries: [
       "CC 104 · Data Structures and Algorithms",
       "SDF 104 · Object-Oriented Programming",
@@ -43,7 +43,7 @@ const SECTIONS = [
     label: "3RD YEAR",
     status: "SYSTEMS",
     color: "#e6f1ff",
-    text: "The heavy subjects: operating systems, networks, HCI, distributed computing. This was also the year my real work life started.",
+    text: "Operating systems, networks, distributed computing — the heaviest year. Halfway through it, I started my first job.",
     entries: [
       "OS 101 · Operating Systems",
       "AR 101 · Architecture and Organization",
@@ -58,7 +58,7 @@ const SECTIONS = [
     label: "OJT",
     status: "THE CROSSING",
     color: "#ff3e1f",
-    text: "My on-the-job training era. Real companies, real users, real deadlines. This is where student work became engineering work.",
+    text: "Two real jobs while finishing the degree — real companies, real users, real deadlines. This is where student work became engineering work.",
     entries: [
       "Career Team LLC · Software Engineer (May 2025 – Jun 2026)",
       "Thorne Consulting · Interim Lead Software Engineer (Mar 2026 – Sep 2026)",
@@ -70,7 +70,7 @@ const SECTIONS = [
     label: "4TH YEAR",
     status: "NOW · SEM 1",
     color: "#ffc857",
-    text: "Where I am now: thesis, software engineering 1 and 2, and the last subjects before graduation.",
+    text: "Where I am now: thesis writing, software engineering 1 and 2, and the last subjects before graduation.",
     entries: [
       "SE 101 · Software Engineering 1 ← current",
       "HCI 102 · Human-Computer Interaction 2",
@@ -154,10 +154,9 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
               <span className="text-[#ffc857]">OJT and beyond.</span>
             </h1>
             <p className="mt-6 text-sm sm:text-lg text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
-              This blog is my whole journey as a computer science student — the
-              subjects, the projects, and my real work experience. Scroll down to
-              travel through it. The closer you get to the sun, the closer to
-              graduation.
+              My whole run as a CS student — the subjects, the side projects,
+              and two real jobs along the way. Scroll to travel through it. The
+              closer to the sun, the closer to graduation.
             </p>
           </section>
 
@@ -240,8 +239,8 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
                 One last post after everything.
               </h2>
               <p className="mt-4 text-sm sm:text-base text-[#c8d6e5] font-light leading-relaxed">
-                A final reflection on the whole trip — what four years and one
-                career actually taught me.
+                What four years and two jobs actually taught me — and where
+                each one fell short.
               </p>
             </Link>
             <p className="mt-16 text-center text-[10px] tracking-[0.34em] text-[#223247]">
