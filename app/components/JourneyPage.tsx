@@ -119,7 +119,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
   return (
     <main className="min-h-screen bg-[#07070a] text-[#e6f1ff] selection:bg-[#ffc857] selection:text-[#07070a]">
       {/* 3D layer */}
-      <WorldCanvas mode="journey" hole progress={progress} activeRing={activeRing} />
+      <WorldCanvas mode="journey" sun progress={progress} activeRing={activeRing} />
 
       {/* left scrim: keeps the text column dark even when the disk glows */}
       <div
@@ -156,7 +156,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
             <p className="mt-6 text-sm sm:text-lg text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
               This blog is my whole journey as a computer science student — the
               subjects, the projects, and my real work experience. Scroll down to
-              travel through it. The closer you get to the center, the closer to
+              travel through it. The closer you get to the sun, the closer to
               graduation.
             </p>
           </section>
@@ -245,7 +245,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
               </p>
             </Link>
             <p className="mt-16 text-center text-[10px] tracking-[0.34em] text-[#223247]">
-              — CENTER OF THE GRAVITY WELL —
+              — CENTER OF THE SYSTEM —
             </p>
           </section>
         </div>
@@ -255,7 +255,7 @@ export default function JourneyPage({ cardHrefs, ojtLinks }: JourneyLinks) {
       <div className="fixed bottom-5 right-5 z-10 border border-[#223247] bg-[#07070a]/70 px-3 py-1.5 text-[9px] sm:text-[10px] tracking-[0.3em] text-[#8fa8c0]/90 font-mono pointer-events-none">
         TRAVELED {traveled}% —{" "}
         <span className="text-[#ffc857]">
-          NOW AT: {currentSection ? currentSection.label : active === "reflection" ? "HORIZON" : "START"}
+          NOW AT: {currentSection ? currentSection.label : active === "reflection" ? "CORE" : "START"}
         </span>
       </div>
     </main>
