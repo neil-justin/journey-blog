@@ -27,6 +27,26 @@ export interface Post extends PostMeta {
 
 const POSTS_DIR = path.join(process.cwd(), "content", "posts");
 
+/**
+ * Strip common markdown syntax so content can be searched as plain text.
+ * Keeps link text and list item content, drops markers/URLs.
+ */
+export function stripMarkdown(md: string): string {
+  return md
+    .replace(/```[\s\S]*?```/g, " ") // fenced code blocks
+    .replace(/`([^`]*)`/g, "$1") // inline code — keep contents
+    .replace(/!\[([^\]]*)\]\([^)]*\)/g, "$1") // images — keep alt text
+    .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1") // links — keep text
+    .replace(/^\s{0,3}#{1,6}\s+/gm, "") // headings
+    .replace(/^\s{0,3}>\s?/gm, "") // blockquotes
+    .replace(/^\s*[-*+]\s+/gm, "") // unordered list markers
+    .replace(/^\s*\d+\.\s+/gm, "") // ordered list markers
+    .replace(/[*_~]+([^*_~]*)[*_~]+/g, "$1") // bold/italic/strikethrough
+    .replace(/<[^>]+>/g, " ") // stray HTML tags
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
 export const PHASE_LABELS: Record<Phase, string> = {
   "1st-year": "1st Year",
   "2nd-year": "2nd Year",
