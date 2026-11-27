@@ -14,19 +14,13 @@ export default function InnerLayout({ children }: { children: ReactNode }) {
       {/* static CSS starfield — atmosphere without competing with the homepage world */}
       <div
         aria-hidden
-        className="pointer-events-none fixed inset-0 z-0 opacity-70"
+        className="pointer-events-none fixed inset-0 z-0"
         style={{
           backgroundImage: [
-            "radial-gradient(1px 1px at 12% 22%, rgba(207,228,255,0.7) 50%, transparent 51%)",
-            "radial-gradient(1px 1px at 28% 64%, rgba(207,228,255,0.45) 50%, transparent 51%)",
-            "radial-gradient(2px 2px at 41% 15%, rgba(207,228,255,0.6) 50%, transparent 51%)",
-            "radial-gradient(1px 1px at 55% 47%, rgba(207,228,255,0.4) 50%, transparent 51%)",
-            "radial-gradient(1.5px 1.5px at 67% 78%, rgba(207,228,255,0.55) 50%, transparent 51%)",
-            "radial-gradient(1px 1px at 74% 29%, rgba(207,228,255,0.5) 50%, transparent 51%)",
-            "radial-gradient(2px 2px at 86% 58%, rgba(207,228,255,0.65) 50%, transparent 51%)",
-            "radial-gradient(1px 1px at 93% 12%, rgba(207,228,255,0.45) 50%, transparent 51%)",
-            "radial-gradient(1px 1px at 7% 84%, rgba(207,228,255,0.4) 50%, transparent 51%)",
-            "radial-gradient(1.5px 1.5px at 48% 91%, rgba(207,228,255,0.5) 50%, transparent 51%)",
+            // sparse bright layer
+            `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='420' height='420'%3E%3Cg fill='%23cfe4ff'%3E%3Ccircle cx='32' cy='54' r='1.6'/%3E%3Ccircle cx='150' cy='23' r='1.1' opacity='.8'/%3E%3Ccircle cx='256' cy='90' r='1.8'/%3E%3Ccircle cx='380' cy='41' r='1' opacity='.7'/%3E%3Ccircle cx='76' cy='180' r='1.2' opacity='.8'/%3E%3Ccircle cx='200' cy='240' r='1.6'/%3E%3Ccircle cx='330' cy='200' r='1' opacity='.7'/%3E%3Ccircle cx='404' cy='150' r='1.4' opacity='.9'/%3E%3Ccircle cx='110' cy='330' r='1.5'/%3E%3Ccircle cx='290' cy='360' r='1.1' opacity='.8'/%3E%3Ccircle cx='20' cy='280' r='1' opacity='.7'/%3E%3Ccircle cx='170' cy='130' r='.9' opacity='.6'/%3E%3Ccircle cx='250' cy='20' r='.9' opacity='.6'/%3E%3Ccircle cx='360' cy='300' r='1.2' opacity='.8'/%3E%3C/g%3E%3C/svg%3E")`,
+            // dense faint layer
+            `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cg fill='%23a9c2e0'%3E%3Ccircle cx='14' cy='40' r='.7' opacity='.55'/%3E%3Ccircle cx='60' cy='10' r='.6' opacity='.45'/%3E%3Ccircle cx='95' cy='66' r='.8' opacity='.6'/%3E%3Ccircle cx='140' cy='30' r='.6' opacity='.4'/%3E%3Ccircle cx='185' cy='80' r='.7' opacity='.55'/%3E%3Ccircle cx='230' cy='18' r='.6' opacity='.45'/%3E%3Ccircle cx='40' cy='120' r='.8' opacity='.5'/%3E%3Ccircle cx='110' cy='150' r='.6' opacity='.45'/%3E%3Ccircle cx='170' cy='130' r='.8' opacity='.6'/%3E%3Ccircle cx='225' cy='170' r='.6' opacity='.4'/%3E%3Ccircle cx='25' cy='210' r='.7' opacity='.55'/%3E%3Ccircle cx='85' cy='240' r='.6' opacity='.4'/%3E%3Ccircle cx='150' cy='220' r='.8' opacity='.6'/%3E%3Ccircle cx='205' cy='245' r='.6' opacity='.45'/%3E%3Ccircle cx='245' cy='115' r='.7' opacity='.5'/%3E%3Ccircle cx='65' cy='180' r='.5' opacity='.35'/%3E%3Ccircle cx='130' cy='95' r='.5' opacity='.35'/%3E%3Ccircle cx='200' cy='50' r='.5' opacity='.35'/%3E%3C/g%3E%3C/svg%3E")`,
           ].join(", "),
         }}
       />
