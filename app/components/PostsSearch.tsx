@@ -93,18 +93,28 @@ export default function PostsSearch({ items }: { items: PostSearchItem[] }) {
               href={`/posts/${item.slug}`}
               className="block border border-[#223247] bg-[#07070a]/80 p-6 transition-colors hover:border-[#ffc857]/60"
             >
-              <p className="text-[10px] font-mono tracking-[0.4em] text-[#4a79bb]">
-                {item.phaseLabel}
-              </p>
-              <h2 className="mt-4 text-lg sm:text-xl font-display">
-                <Highlighted text={item.title} query={query.trim()} />
-              </h2>
-              <p className="mt-3 text-sm text-[#c8d6e5] font-light leading-relaxed">
-                <Highlighted text={item.excerpt} query={query.trim()} />
-              </p>
-              <p className="mt-4 text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">
-                READ →
-              </p>
+              <div className="flex flex-col gap-5 sm:flex-row sm:items-start">
+                <img
+                  src={`/posts/art/${item.slug}.svg`}
+                  alt=""
+                  aria-hidden
+                  className="block w-full shrink-0 border border-[#223247] object-cover object-right sm:w-52"
+                />
+                <div className="min-w-0">
+                  <p className="text-[10px] font-mono tracking-[0.4em] text-[#4a79bb]">
+                    {item.phaseLabel}
+                  </p>
+                  <h2 className="mt-4 text-lg sm:text-xl font-display">
+                    <Highlighted text={item.title} query={query.trim()} />
+                  </h2>
+                  <p className="mt-3 text-sm text-[#c8d6e5] font-light leading-relaxed">
+                    <Highlighted text={item.excerpt} query={query.trim()} />
+                  </p>
+                  <p className="mt-4 text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">
+                    READ →
+                  </p>
+                </div>
+              </div>
             </Link>
           ))}
         </div>
