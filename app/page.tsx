@@ -127,7 +127,7 @@ function BlackHole({ activeRing }: { activeRing: number }) {
   });
 
   return (
-    <group ref={group} position={[0, narrow ? 9 : 1, -20]}>
+    <group ref={group} position={[narrow ? 0 : 18, narrow ? 9 : 1, -20]}>
       <group rotation={[1.22, 0, 0.3]}>
         {/* the accretion disk — one textured ring, reads as light not plastic */}
         <mesh ref={disk}>
@@ -177,11 +177,13 @@ function BlackHole({ activeRing }: { activeRing: number }) {
 
 function FallCamera({ progress }: { progress: number }) {
   const { camera } = useThree();
+  const { viewport } = useThree();
   useFrame(() => {
     const targetZ = 78 - progress * 50; // 78 → 28
     camera.position.z += (targetZ - camera.position.z) * 0.06;
     camera.position.y += (2 - camera.position.y) * 0.06;
-    camera.lookAt(0, 1, -20);
+    // desktop: hole sits in the right half; mobile: centered above text
+    camera.lookAt(viewport.aspect < 1 ? 0 : 7, 1, -20);
   });
   return null;
 }
@@ -328,16 +330,26 @@ export default function DeepHome() {
         )}
       </div>
 
+      {/* left scrim: keeps the text column dark even when the disk glows */}
+      <div
+        aria-hidden
+        className="fixed inset-0 z-[1] pointer-events-none"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(7,7,10,0.88) 0%, rgba(7,7,10,0.55) 30%, transparent 55%)",
+        }}
+      />
+
       {/* content */}
       <div className="relative z-10">
         <header className="flex flex-wrap items-baseline justify-between gap-3 px-5 sm:px-10 py-6">
-          <p className="tracking-[0.5em] text-sm">
+          <p className="font-mono tracking-[0.5em] text-sm">
             NEIL JUSTIN MALLARI
             <span className="block text-[10px] tracking-[0.34em] text-[#4a79bb] mt-1">
               MY JOURNEY FROM 1ST YEAR TO OJT — IN 3D
             </span>
           </p>
-          <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0]">
+          <nav className="flex gap-5 text-[11px] tracking-[0.25em] text-[#8fa8c0] font-mono">
             <a className="hover:text-[#ffc857]" href="#intro">HOME</a>
             <a className="hover:text-[#ffc857]" href="#first-year">POSTS</a>
             <a className="hover:text-[#ffc857]" href="#about">ABOUT</a>
@@ -347,13 +359,13 @@ export default function DeepHome() {
 
         <div className="mx-auto max-w-2xl sm:px-10 px-5 pb-40 lg:mx-0 lg:ml-[6vw]">
           <section className="pt-[42vh]" id="intro">
-            <p className="text-[11px] tracking-[0.4em] text-[#4a79bb] drop-shadow-[0_2px_8px_rgba(7,7,10,1)]">
+            <p className="text-[11px] font-mono tracking-[0.4em] text-[#4a79bb] drop-shadow-[0_2px_8px_rgba(7,7,10,1)]">
               MY JOURNEY AS A CS STUDENT
             </p>
-            <h1 className="mt-6 text-4xl sm:text-6xl font-extralight leading-tight drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
+            <h1 className="mt-6 text-3xl sm:text-5xl leading-snug font-bold font-display drop-shadow-[0_2px_18px_rgba(7,7,10,0.95)]">
               From 1st year
               <br />
-              to <span className="font-semibold text-[#ffc857]">OJT and beyond.</span>
+              to <span className="text-[#ffc857]">OJT and beyond.</span>
             </h1>
             <p className="mt-6 text-sm sm:text-lg text-[#c8d6e5] leading-relaxed font-light max-w-lg drop-shadow-[0_2px_12px_rgba(7,7,10,1)]">
               This blog is my whole journey as a computer science student — the
@@ -370,7 +382,7 @@ export default function DeepHome() {
                   active === o.id ? "border-[#ffc857]/60" : "border-[#223247]"
                 } bg-[#07070a]/80`}
               >
-                <p className="text-[10px] tracking-[0.4em]" style={{ color: o.color }}>
+                <p className="text-[10px] font-mono tracking-[0.4em]" style={{ color: o.color }}>
                   {active === o.id ? "● YOU ARE HERE" : "CHAPTER"} — {o.label}
                   {o.status.startsWith("NOW") ? " · " + o.status : ""}
                 </p>
@@ -385,7 +397,7 @@ export default function DeepHome() {
                     </li>
                   ))}
                 </ul>
-                <p className="mt-6 text-[11px] tracking-[0.25em] text-[#4a79bb]">
+                <p className="mt-6 text-[11px] font-mono tracking-[0.25em] text-[#4a79bb]">
                   READ THIS CHAPTER →
                 </p>
               </div>
@@ -419,7 +431,7 @@ export default function DeepHome() {
       </div>
 
       {/* status gauge */}
-      <div className="fixed bottom-5 left-5 z-10 border border-[#223247] bg-[#07070a]/80 px-4 py-2 text-[10px] tracking-[0.3em] text-[#8fa8c0]">
+      <div className="fixed bottom-5 right-5 z-10 border border-[#223247] bg-[#07070a]/70 px-3 py-1.5 text-[9px] sm:text-[10px] tracking-[0.3em] text-[#8fa8c0]/90 font-mono pointer-events-none">
         TRAVELED {traveled}% —{" "}
         <span className="text-[#ffc857]">
           NOW AT: {currentSection ? currentSection.label : active === "reflection" ? "HORIZON" : "START"}
