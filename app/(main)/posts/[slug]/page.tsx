@@ -25,7 +25,7 @@ export default async function PostPage({ params }: PageProps<"/posts/[slug]">) {
   return (
     <article className="pt-16">
       <p className="text-[10px] font-mono tracking-[0.4em] text-[#4a79bb]">
-        {post.date} — {PHASE_LABELS[post.phase]}
+        {PHASE_LABELS[post.phase]}
       </p>
       <h1 className="mt-4 text-2xl sm:text-3xl font-display leading-snug">
         {post.title}

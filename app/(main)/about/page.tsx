@@ -34,7 +34,7 @@ export default function AboutPage() {
       <h1 className="text-2xl sm:text-3xl font-display">About</h1>
 
       <div className="mt-10 space-y-6 text-sm text-[#c8d6e5] font-light leading-relaxed">
-        {/* TODO(interview): replace draft bio with Neil's reviewed words */}
+        {/* Bio approved by Neil in content interview, 2026-11-27 */}
         <p>
           I&apos;m Neil Justin Mallari, a computer science student based in
           Cavite, Philippines, documenting the whole trip — from a first

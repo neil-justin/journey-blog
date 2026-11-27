@@ -1,0 +1,47 @@
+---
+title: What Shipping Taught Me
+phase: ojt
+order: 6
+date: 2026-11-27
+excerpt: Lessons only industry gives — users, tradeoffs, deadlines, and the difference between finished and shipped.
+---
+
+# What Shipping Taught Me
+
+Two jobs — Career Team LLC and Thorne Consulting — compressed a lot of education into a short time. The individual stories are in the previous posts. This one is the distillation: the lessons that only exist on the far side of shipping real software to real people.
+
+## 1. Done is a performance word, not a status word
+
+In school, "done" meant the assignment compiled and behaved correctly on the test cases. In production, I learned that "done" means something is behaving correctly in front of people who did not write it and do not care how it works internally.
+
+At Career Team, shipping the configurable workforce forms and admin profile management taught me that a feature is done when a client organization successfully uses it — which includes the parts I never would have thought to test: what happens when a client configures the form in a way I never imagined? Users stress-test assumptions, not just code. Real usage is the only test suite that never lies.
+
+## 2. Performance problems are data problems
+
+The most satisfying piece of engineering work I did at Career Team was fixing slow MongoDB queries in the multi-tenant admin dashboard. Nothing about the fix was exotic. What was educational was the diagnosis path: the slowness was not in the UI, not in the framework, not in the server — it was in how the data was shaped and asked for.
+
+That repair convinced me of something I now believe generally: most performance work is data-structure work wearing production clothing. My second-year Data Structures and Algorithms course was right, and it took a real dashboard with real users waiting on it to prove how right it was.
+
+## 3. Ambiguity is the actual job
+
+School problems arrive with complete specifications. Real work almost never does. Whether it was specifying schemas and API contracts at Thorne, or translating between developers and product during Career Team's daily standups, the hardest and most valuable work was consistently the same activity: turning vague intentions into precise decisions.
+
+This reframed my job description entirely. Writing code is the execution half. The other half — asking the question that exposes the hidden assumption before it becomes a rework ticket — is at least equal in value, and rarer.
+
+## 4. Leadership is service made visible
+
+The interim lead role at Thorne taught me that the unglamorous acts — reviewing someone's code carefully, unblocking a mentored intern, onboarding a new engineer on the architecture — are what leadership actually consists of. Facilitating standups, buddying new engineers at Career Team, mentoring two interns at Thorne: none of it looked like leadership from the inside. It looked like making other people's work possible. From the outside, that is what teams call a leader.
+
+## 5. Interviews teach you who you are
+
+Conducting around 55 interviews at Thorne, plus technical interviews for engineering candidates at Career Team, gave me an unexpected gift: an external standard. Watching dozens of engineers reason through unfamiliar problems taught me what competence looks and sounds like — calm reasoning, admitted limits, structured thinking under pressure. I now hold my own work to the standard I watched others meet or miss.
+
+## 6. Deadlines are honest
+
+School deadlines are negotiating positions. Production deadlines are not — releases, clients, and teammates depend on the date. The lesson is not "panic." It is prioritization: decide what done-enough means, cut deliberately rather than randomly, and communicate the tradeoff before someone discovers it in production. Working across two companies while still completing my degree made deadline discipline a survival skill rather than a virtue.
+
+## What this era comes to
+
+Shipping taught me what no assignment could: software is a social object. It is built with people, for people, against time — and the engineering is the easy half of that sentence.
+
+One year-level post remains, and it is written from inside it. That is next.
